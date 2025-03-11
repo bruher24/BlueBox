@@ -28,4 +28,4 @@ docker compose exec -it app bash
 ```shell
 php artisan migrate
 ```
-6. После этого можно заходить на http://localhost, проект готов к использованию
+6. После этого можно заходить на http://localhost, проект готов к использованию.
