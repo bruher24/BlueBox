@@ -24,8 +24,12 @@ docker compose up --build -d
 ```shell
 docker compose exec -it app bash
 ```
-И выполнить миграции
+Выполнить миграции
 ```shell
 php artisan migrate
+```
+Заполнить таблицу с категориями
+```shell
+php artisan db:seed --class=CategorySeeder
 ```
 6. После этого можно заходить на http://localhost, проект готов к использованию.
