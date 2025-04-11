@@ -33,4 +33,15 @@ php artisan migrate
 ```shell
 php artisan db:seed --class=CategorySeeder
 ```
-7. После этого можно заходить на http://localhost, проект готов к использованию.
+7. После этого можно заходить на http://localhost:3000, проект готов к использованию.
+
+## Переменные по умолчанию
+### nginx
+ports: "3000:80"
+### postgres
+ports: "5433:5432"
+DB: mydatabase
+USER: laravel
+PWD: secret
+### adminer
+ports: "8080:8080"
