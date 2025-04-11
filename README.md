@@ -39,9 +39,9 @@ php artisan db:seed --class=CategorySeeder
 ### nginx
 ports: "3000:80"
 ### postgres
-ports: "5433:5432"
-DB: mydatabase
-USER: laravel
+ports: "5433:5432"\
+DB: mydatabase\
+USER: laravel\
 PWD: secret
 ### adminer
 ports: "8080:8080"
