@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id('order_id');
-            $table->foreignId('product_id')->constrained('products', 'product_id');
+            $table->foreignId('product_id')->constrained('products', 'product_id')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('quantity')->default(1);
             $table->string('client_name');
             $table->enum('status', ['new', 'done'])->default('new');

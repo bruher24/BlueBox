@@ -6,7 +6,7 @@ services:
         container_name: app_nginx
         restart: unless-stopped
         ports:
-            - "80:80"
+            - "3000:80"
         volumes:
             - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
             - ./:/var/www/
@@ -42,6 +42,22 @@ services:
             - ./pgdata:/var/lib/postgresql/data/pgdata
         networks:
             - app_network
+
+    adminer:
+        image: adminer:latest
+        container_name: adminer
+        restart: always
+        ports:
+            - "8080:8080"
+        environment:
+            ADMINER_DEFAULT_DB_DRIVER: pgsql
+            ADMINER_DEFAULT_DB_HOST: postgres:5433
+            ADMINER_DEFAULT_DB_NAME: mydatabase
+        depends_on:
+            -   postgres
+        networks:
+            - app_network
+
 
 networks:
     app_network:
