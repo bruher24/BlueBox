@@ -17,7 +17,7 @@ cd mpfit_task
  - .env
  - docker-compose.yml
  - docker/nginx/conf.d/nginx.conf
-5. Выполнить
+5. Выполнить сборку и развертывание
 ```shell
 docker compose up --build -d
 ```
