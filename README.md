@@ -12,15 +12,16 @@
 ```shell
 cd mpfit_task
 ```
-3. При необходимости изменить порты в конфигах:
+3. Создать копию файла **.env.example** и назвать ее **.env**
+4. При необходимости изменить порты и другие данные в конфигурационных файлах:
  - .env
  - docker-compose.yml
  - docker/nginx/conf.d/nginx.conf
-4. Выполнить
+5. Выполнить
 ```shell
 docker compose up --build -d
 ```
-5. По окончании сборки и развертывания зайти в контейнер с laravel
+6. По окончании сборки и развертывания зайти в контейнер с laravel
 ```shell
 docker compose exec -it app bash
 ```
@@ -32,4 +33,4 @@ php artisan migrate
 ```shell
 php artisan db:seed --class=CategorySeeder
 ```
-6. После этого можно заходить на http://localhost, проект готов к использованию.
+7. После этого можно заходить на http://localhost, проект готов к использованию.
