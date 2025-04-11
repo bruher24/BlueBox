@@ -21,7 +21,7 @@ cd mpfit_task
 ```shell
 docker compose up --build -d
 ```
-6. По окончании сборки и развертывания зайти в контейнер с laravel
+6. По окончании сборки и развертывания зайти в контейнер с Laravel
 ```shell
 docker compose exec -it app bash
 ```
