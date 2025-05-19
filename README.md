@@ -1,4 +1,4 @@
-# mpfit_task
+# BlueBox
 ## Описание
 Веб-приложение с использованием фреймворка Laravel (https://laravel.com/docs/9.x), которое включает управление товарами и заказами.
 
@@ -10,22 +10,53 @@
 Также необходим docker compose https://docs.docker.com/compose/
 2. Запустить терминал, перейти в директорию с проектом
 ```shell
-cd mpfit_task
+cd BlueBox
 ```
 3. Создать копию файла **.env.example** и назвать ее **.env**
+```shell
+cp .env.example .env
+```
 4. При необходимости изменить порты и другие данные в конфигурационных файлах:
  - .env
  - docker-compose.yml
  - docker/nginx/conf.d/nginx.conf
-5. Выполнить сборку и развертывание
+  
+Используя **Makefile**:
+5. Выполнить сборку и установку зависимостей
 ```shell
-docker compose up --build -d
+make build
 ```
-6. По окончании сборки и развертывания зайти в контейнер с Laravel
+6. Развернуть проект
+```shell
+make run
+```
+7. Заполнить таблицы
+```shell
+make fill
+```
+  
+Без использования **Makefile**:
+5. Выполнить сборку
+```shell
+docker compose build
+```
+6. Развернуть проект
+```shell
+docker compose up -d 
+```
+7. Открыть терминал контейнера
 ```shell
 docker compose exec -it app bash
+``` 
+>Этот шаг **опционален**, т.к. все команды можно выполнить извне контейнера, например:
+>```shell
+>docker compose exec app composer update
+>```
+8.Установить зависимости
+```shell
+composer update
 ```
-Выполнить миграции
+8. Выполнить миграции
 ```shell
 php artisan migrate
 ```
