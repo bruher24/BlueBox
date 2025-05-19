@@ -1,15 +1,8 @@
-@extends('layout')
-@section('title')
+@extends('orders.layout')
+@section('orders.title')
     Детали заказа
 @endsection
-@section('navbar')
-    <ul class="nav nav-pills">
-        <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="{{ route('products') }}" class="nav-link">Товары</a></li>
-        <li class="nav-item"><a href="{{ route('orders') }}" class="nav-link active"  aria-current="page">Заказы</a></li>
-    </ul>
-@endsection
-@section('content')
+@section('orders.content')
 
     <div class="container">
         <table class="table">
@@ -22,11 +15,11 @@
             <tbody>
             <tr>
                 <td>ID</td>
-                <td>{{ $order->order_id }}</td>
+                <td>{{ $order->id }}</td>
             </tr>
             <tr>
                 <td>Дата создания</td>
-                <td>{{ date_format($order->created_at, "hh:ii dd.mm.yyyy") }}</td>
+                <td>{{ $order->created_at->timezone('Europe/Samara')->format('H:i d.m.Y') }}</td>
             </tr>
             <tr>
                 <td>ФИО покупателя</td>
@@ -34,7 +27,7 @@
             </tr>
             <tr>
                 <td>Товар(ID)</td>
-                <td>{{ $order->product_id }}</td>
+                <td>{{ $order->id }}</td>
             </tr>
             <tr>
                 <td>Количество</td>
@@ -61,17 +54,19 @@
             </tbody>
         </table>
 
-        <a href="{{ route('orders') }}">
+        <a href="{{ route('orders.list') }}">
             <button class="btn btn-dark">Назад</button>
         </a>
-        <form action="{{ route('orders.done', $order->order_id) }}" method="POST" style="@if($order->status === "done") display:none; @else display:inline; @endif">
+        <form action="{{ route('orders.complete', $order->id) }}" method="POST" style="@if($order->status === "done") display:none; @else display:inline; @endif">
             @csrf
             @method('PUT')
             <button type="submit" class="btn btn-success">Выполнить</button>
         </form>
-        <a href="{{ route('orders.delete', $order->order_id) }}">
-            <button class="btn btn-danger">Удалить</button>
-        </a>
+        <form action="{{ route('orders.delete', $order->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот заказ?')">Удалить</button>
+        </form>
 
     </div>
 @endsection

@@ -15,8 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Category::create(['category_name' => 'Легкий']);
-        Category::create(['category_name' => 'Тяжелый']);
-        Category::create(['category_name' => 'Хрупкий']);
+        $categories = [
+            ['name' => 'Легкий'],
+            ['name' => 'Тяжелый'],
+            ['name' => 'Хрупкий'],
+        ];
+        foreach ($categories as $category) {
+            Category::create($category);
+        }
     }
 }

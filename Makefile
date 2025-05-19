@@ -8,7 +8,11 @@ run:
 	docker compose up -d
 
 fill:
-	docker compose exec php artisan db:seed
+	docker compose exec app php artisan migrate
+	docker compose exec app php artisan db:seed
+
+bash:
+	docker compose exec -it app bash
 
 stop:
 	docker compose down

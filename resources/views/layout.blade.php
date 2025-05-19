@@ -16,10 +16,10 @@
         <svg class="bi me-2" width="40" height="32">
             <use xlink:href="#bootstrap"></use>
         </svg>
-        <span class="fs-4">MPFIT</span>
+        <span class="fs-4">BlueBox</span>
     </a>
 
-    @yield('navbar')
+    @include('navbar')
 </header>
 @include('alert')
 @yield('content')

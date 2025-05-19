@@ -10,11 +10,13 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_name',
+        'name',
         'category_id',
         'description',
         'price',
     ];
 
-    protected $primaryKey = 'product_id';
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

@@ -17,24 +17,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
+})->name('home');
+
+Route::controller(ProductController::class)->prefix('products')->name('products.')->group(function () {
+    Route::get('list', 'index')->name('list');
+    Route::get('form/{product_id?}', 'form')->name('form');
+    Route::post('create', 'create')->name('create');
+    Route::put('{product_id}/update', 'update')->name('update');
+    Route::delete('{product_id}/delete', 'delete')->name('delete');
+    Route::get('{product_id}/details', 'details')->name('details');
 });
 
-Route::controller(ProductController::class)->group(function () {
-    Route::get('/products', 'index')->name('products');
-    Route::get('/products/add', 'showForm')->name('products.form');
-    Route::post('/products/add', 'addProduct')->name('products.add');
-    Route::get('/products/{product_id}/edit', 'editProduct')->name('products.edit');
-    Route::put('/products/{product_id}/update', 'updateProduct')->name('products.update');
-    Route::delete('/products/{product_id}/delete', 'deleteProduct')->name('products.delete');
-    Route::get('/products/{product_id}/details', 'detailsProduct')->name('products.details');
-});
-
-Route::controller(OrderController::class)->group(function () {
-    Route::get('/orders', 'index')->name('orders');
-    Route::get('/orders/add', 'showForm')->name('orders.form');
-    Route::post('/orders/add', 'addOrder')->name('orders.add');
-    Route::put('/orders/{order_id}/done', 'doneOrder')->name('orders.done');
-    Route::get('/orders/{order_id}/delete', 'deleteOrder')->name('orders.delete');
-    Route::get('/orders/{order_id}/details', 'detailsOrder')->name('orders.details');
+Route::controller(OrderController::class)->prefix('orders')->name('orders.')->group(function () {
+    Route::get('list', 'index')->name('list');
+    Route::get('form}', 'form')->name('form');
+    Route::post('create', 'create')->name('create');
+    Route::put('{order_id}/complete', 'complete')->name('complete');
+    Route::get('{order_id}/delete', 'delete')->name('delete');
+    Route::get('{order_id}/details', 'details')->name('details');
 });
 

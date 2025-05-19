@@ -13,11 +13,13 @@ class OrderController extends Controller
         return view('orders.index', compact('orders'));
     }
 
-    public function showForm(){
-        return view('orders.form', ['products' => Product::all()]);
+    public function form($orderId = null){
+        $order = Order::find($orderId);
+        $products = Product::all();
+        return view('orders.form', compact('products', 'order'));
     }
 
-    public function addOrder(Request $request){
+    public function create(Request $request){
         $validated = $request->validate([
             'client_name' => 'required|string|max:255',
             'product_id' => 'required|integer',
@@ -26,26 +28,19 @@ class OrderController extends Controller
             'status' => 'required|in:new,done',
         ]);
 
-        $input = $request->all();
-        $order = new Order();
-        $order->fill($input);
-        $order->save();
-        return redirect()->route('orders')->with('success', 'Заказ добавлен!');
+        Order::create($validated);
+
+        return redirect()->route('orders.list')->with('success', 'Заказ добавлен!');
     }
 
-    public function editOrder(int $order_id){
-        $order = Order::findOrFail($order_id);
-        return view('orders.form', ['order' => $order, 'products' => Product::all()]);
-    }
-
-    public function doneOrder(int $order_id){
+    public function complete(int $order_id){
         $order = Order::findOrFail($order_id);
         $order->status = 'done';
         $order->save();
         return redirect()->route('orders.details', $order_id)->with('success', 'Заказ отмечен выполненным!');
     }
 
-    public function updateOrder(Request $request, int $order_id){
+    public function update(Request $request, int $order_id){
         $validated = $request->validate([
             'client_name' => 'required|string|max:255',
             'product_id' => 'required|integer',
@@ -54,20 +49,19 @@ class OrderController extends Controller
             'status' => 'required|in:new,done',
         ]);
 
-        $input = $request->all();
         $order = Product::findOrFail($order_id);
-        $order->update($input);
-        return redirect()->route('orders')->with('success', 'Заказ обновлен!');
+        $order->update($validated);
+        return redirect()->route('orders.list')->with('success', 'Заказ обновлен!');
 
     }
 
-    public function deleteOrder(int $order_id){
+    public function delete(int $order_id){
         Order::destroy($order_id);
-        return redirect()->route('orders')->with('success', 'Заказ удален!');
+        return redirect()->route('orders.list')->with('success', 'Заказ удален!');
     }
 
-    public function detailsOrder(int $order_id){
+    public function details(int $order_id){
         $order = Order::findOrFail($order_id);
-        return view('orders.details', ['order' => $order]);
+        return view('orders.details', compact('order'));
     }
 }

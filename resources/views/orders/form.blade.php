@@ -1,15 +1,8 @@
-@extends('layout')
-@section('title')
+@extends('orders.layout')
+@section('orders.title')
     Заказ
 @endsection
-@section('navbar')
-    <ul class="nav nav-pills">
-        <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="{{ route('products') }}" class="nav-link active" aria-current="page">Товары</a></li>
-        <li class="nav-item"><a href="{{ route('orders') }}" class="nav-link">Заказы</a></li>
-    </ul>
-@endsection
-@section('content')
+@section('orders.content')
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -20,7 +13,7 @@
         </div>
     @endif
     <div class="container" style="max-width:600px;margin:60px auto;">
-        <form role="form" class="form-control" method="post" action="{{ route('orders.add') }}">
+        <form role="form" class="form-control" method="post" action="{{ route('orders.create') }}">
             @csrf
 
             <div class="input-group">
@@ -34,7 +27,7 @@
                     Товар:
                     <select class="form-select form-control" id="product_id" name="product_id">
                         @foreach($products as $product)
-                            <option value="{{ $product->product_id }}">{{ $product->product_name }}</option>
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
                         @endforeach
                     </select>
                 </label>
@@ -60,9 +53,9 @@
                     </select>
                 </label>
             </div>
-            <input class="btn btn-dark" type="submit">
+            <input class="btn btn-success" type="submit" value="Сохранить">
         </form>
-        <a href="{{ route('orders') }}">
+        <a href="{{ route('orders.list') }}">
             <button class="btn btn-dark">Назад</button>
         </a>
 

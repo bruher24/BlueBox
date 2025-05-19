@@ -15,55 +15,48 @@ class ProductController extends Controller
      * @return Application|Factory|View
      */
     public function index(){
-        return view('products.index', ['products' => Product::all()]);
+        $products = Product::all();
+        return view('products.index', compact('products'));
     }
 
-    public function showForm(){
-        return view('products.form', ['categories' => Category::all()]);
+    public function form($productId = null){
+        $product = Product::find($productId);
+        $categories = Category::all();
+        return view('products.form', compact('categories', 'product'));
     }
 
-    public function addProduct(Request $request){
+    public function create(Request $request){
         $validated = $request->validate([
-            'product_name' => 'required|string|unique:products|max:255',
+            'name' => 'required|string|unique:products|max:255',
+            'category_id' => 'required|in:1,2,3',
+            'description' => 'required|string|max:500',
+            'price' => 'required|integer',
+        ]);
+        Product::create($validated);
+        return redirect()->route('products.list')->with('success', 'Товар добавлен!');
+    }
+
+    public function update(Request $request, int $productId){
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:products,name,'.$productId,
             'category_id' => 'required|in:1,2,3',
             'description' => 'required|string|max:500',
             'price' => 'required|integer',
         ]);
 
-        $input = $request->all();
-        $product = new Product();
-        $product->fill($input);
-        $product->save();
-        return redirect()->route('products')->with('success', 'Товар добавлен!');
-    }
-
-    public function editProduct(int $product_id){
-        $product = Product::findOrFail($product_id);
-        return view('products.form', ['product' => $product, 'categories' => Category::all()]);
-    }
-
-    public function updateProduct(Request $request, int $product_id){
-        $validated = $request->validate([
-            'product_name' => 'required|string|unique:products|max:255',
-            'category_id' => 'required|in:1,2,3',
-            'description' => 'required|string|max:500',
-            'price' => 'required|integer',
-        ]);
-
-        $input = $request->all();
-        $product = Product::findOrFail($product_id);
-        $product->update($input);
-        return redirect()->route('products')->with('success', 'Товар обновлен!');
+        $product = Product::findOrFail($productId);
+        $product->update($validated);
+        return redirect()->route('products.list')->with('success', 'Товар успешно обновлен!');
 
     }
 
-    public function deleteProduct(int $product_id){
-        Product::destroy($product_id);
-        return redirect()->route('products')->with('success', 'Товар удален!');
+    public function delete(int $productId){
+        Product::destroy($productId);
+        return redirect()->route('products.list')->with('success', 'Товар успешно удален!');
     }
 
-    public function detailsProduct(int $product_id){
-        $product = Product::findOrFail($product_id);
-        return view('products.details', ['product' => $product]);
+    public function details(int $productId){
+        $product = Product::findOrFail($productId);
+        return view('products.details', compact('product'));
     }
 }
