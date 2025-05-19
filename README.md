@@ -8,11 +8,11 @@
 ## Запуск
 1. Запустить движок Docker (в терминале либо Docker Desktop) https://docs.docker.com/manuals/ \
 Также необходим docker compose https://docs.docker.com/compose/
-2. Запустить терминал, перейти в директорию с проектом
+2. Перейти в директорию с проектом
 ```shell
 cd BlueBox
 ```
-3. Создать копию файла **.env.example** и назвать ее **.env**
+3. Создать копию файла с переменными окружения **.env.example** и назвать ее **.env**
 ```shell
 cp .env.example .env
 ```
@@ -21,7 +21,11 @@ cp .env.example .env
  - docker-compose.yml
  - docker/nginx/conf.d/nginx.conf
   
-Используя **Makefile**:
+> [!TIP]
+> Для удобства использования в проекте присутствует Makefile, с помощью которого можно упростить сборку и развертывание.
+<details open>
+    <summary><h3>Используя <b>Makefile</b>:</h3></summary>
+
 5. Выполнить сборку и установку зависимостей
 ```shell
 make build
@@ -34,25 +38,25 @@ make run
 ```shell
 make fill
 ```
-  
-Без использования **Makefile**:
-5. Выполнить сборку
+</details>
+
+> [!TIP]
+> Все команды, выполняемые далее в терминале контейнера, можно выполнить извне, например:
+> ```shell
+> docker compose exec app composer update
+> ```
+<details>
+    <summary><h3>Без использования Makefile:</h3></summary>
+
+5. Выполнить сборку и развертывание
 ```shell
-docker compose build
+docker compose up --build -d
 ```
-6. Развернуть проект
-```shell
-docker compose up -d 
-```
-7. Открыть терминал контейнера
+6. Открыть терминал контейнера
 ```shell
 docker compose exec -it app bash
-``` 
->Этот шаг **опционален**, т.к. все команды можно выполнить извне контейнера, например:
->```shell
->docker compose exec app composer update
->```
-8.Установить зависимости
+```
+7. Установить зависимости
 ```shell
 composer update
 ```
@@ -60,11 +64,14 @@ composer update
 ```shell
 php artisan migrate
 ```
-Заполнить таблицу с категориями
+9. Заполнить таблицы начальными данными
 ```shell
-php artisan db:seed --class=CategorySeeder
+php artisan db:seed
 ```
-7. После этого можно заходить на http://localhost:3000, проект готов к использованию.
+</details>
+  
+После этого можно заходить на http://localhost:3000, проект готов к использованию. \
+Adminer для управления и просмотра базы данных доступен по адресу http://localhost:8080.
 
 ## Переменные по умолчанию
 ### nginx
