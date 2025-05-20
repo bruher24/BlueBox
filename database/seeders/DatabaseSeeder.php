@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,8 +19,8 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Тяжелый'],
             ['name' => 'Хрупкий'],
         ];
-        foreach ($categories as $category) {
+        collect($categories)->each(function ($category) {
             Category::create($category);
-        }
+        });
     }
 }
