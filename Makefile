@@ -7,6 +7,9 @@ build:
 run:
 	docker compose up -d
 
+key:
+	docker compose exec app php artisan key:generate
+# TODO: добавить в инструкцию
 fill:
 	docker compose exec app php artisan migrate
 	docker compose exec app php artisan db:seed
@@ -16,3 +19,6 @@ bash:
 
 stop:
 	docker compose down
+
+roll:
+	curl ascii.live/rick
