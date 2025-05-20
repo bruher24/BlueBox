@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('description');
             $table->float('price');
             $table->timestamps();
+            $table->index('category_id', 'idx_products_category_id');
+            $table->index('price', 'idx_products_price');
+            $table->index('updated_at', 'idx_products_updated_at');
+            $table->index(['category_id', 'price'], 'idx_products_category_price');
         });
     }
 

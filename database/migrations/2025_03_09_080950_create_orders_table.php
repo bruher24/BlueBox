@@ -21,6 +21,9 @@ return new class extends Migration
             $table->enum('status', ['new', 'done'])->default('new');
             $table->text('comment')->nullable();
             $table->timestamps();
+            $table->index('product_id', 'idx_orders_product_id');
+            $table->index(['status', 'created_at'], 'idx_orders_status_created_at');
+            $table->index('status', 'idx_orders_active')->where('status', 'new');
         });
     }
 
