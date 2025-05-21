@@ -27,6 +27,7 @@
                 <label class="form-label" for="product_id">
                     Товар:
                     <select class="form-select form-control" id="product_id" name="product_id">
+                        <option selected disabled>Выберите товар...</option>
                         @foreach($products as $product)
                             <option value="{{ $product->id }}">{{ $product->name }}</option>
                         @endforeach

@@ -6,7 +6,7 @@
 
     <div class="container">
         <a href="{{route('orders.form')}}">
-            <button class="btn btn-success">Добавить заказ</button>
+            <button class="btn btn-success mb-1">Добавить заказ</button>
         </a>
         <table class="table">
             <thead>

@@ -27,19 +27,7 @@
             </tr>
             <tr>
                 <td>Категория</td>
-                <td>
-                    @switch($product->category_id)
-                        @case('1')
-                            Легкий(1)
-                            @break
-                        @case('2')
-                            Тяжелый(2)
-                            @break
-                        @case('3')
-                            Хрупкий(3)
-                            @break
-                    @endswitch
-                </td>
+                <td>{{ $product->category->name . ' (' . $product->category_id . ')' }}</td>
             </tr>
             <tr>
                 <td>Цена</td>

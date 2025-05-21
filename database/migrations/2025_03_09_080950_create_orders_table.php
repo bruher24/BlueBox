@@ -16,15 +16,15 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('client_name', 60);
             $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('quantity')->default(1);
-            $table->string('client_name');
+            $table->unsignedInteger('quantity');
             $table->tinyInteger('status')->default(StatusEnum::New->value);
             $table->text('comment')->nullable();
             $table->timestamps();
             $table->index('product_id', 'idx_orders_product_id');
             $table->index(['status', 'created_at'], 'idx_orders_status_created_at');
-            $table->index('status', 'idx_orders_active')->where('status', 'new');
+            $table->index('status', 'idx_orders_active')->where('status', 0);
         });
     }
 
