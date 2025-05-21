@@ -20,7 +20,8 @@
             <div class="input-group">
                 <label class="form-label" for="client_name">
                     ФИО:
-                    <input class="form-control" id="client_name" name="client_name" type="text">
+                    <input class="form-control" id="client_name" name="client_name" type="text"
+                    value="{{ session()->getOldInput('client_name') ?? '' }}">
                 </label>
             </div>
             <div class="input-group">
@@ -29,7 +30,8 @@
                     <select class="form-select form-control" id="product_id" name="product_id">
                         <option selected disabled>Выберите товар...</option>
                         @foreach($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            <option @selected(session()->getOldInput('product_id') == $product->id)
+                                value="{{ $product->id }}">{{ $product->name }}</option>
                         @endforeach
                     </select>
                 </label>
@@ -37,14 +39,15 @@
             <div class="input-group">
                 <label class="form-label" for="quantity">
                     Количество:
-                    <input class="form-control" id="quantity" name="quantity" type="number" min="1" value="1">
+                    <input class="form-control" id="quantity" name="quantity" type="number" min="1" placeholder="Введите целое число..."
+                           value="{{ session()->getOldInput('quantity') ?? 1 }}">
                 </label>
             </div>
             <div class="input-group">
                 <label class="form-label" for="comment">
                     Комментарий:
                     <textarea class="form-control" id="comment" name="comment"
-                              placeholder="Введите текст..."></textarea>
+                              placeholder="Введите текст...">{{ session()->getOldInput('comment') ?? '' }}</textarea>
                 </label>
             </div>
             <div class="input-group">
@@ -52,7 +55,8 @@
                     Статус:
                     <select class="form-select form-control" id="status" name="status">
                         @foreach(StatusEnum::cases() as $status)
-                            <option value="{{ $status->value }}">{{ $status->label() }}</option>
+                            <option @selected(session()->getOldInput('status') == $status->value)
+                                value="{{ $status->value }}">{{ $status->label() }}</option>
                         @endforeach
                     </select>
                 </label>

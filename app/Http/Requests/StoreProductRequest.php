@@ -25,7 +25,8 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:40|unique:products,name, ' . $this->request->get('product_id'),
+            'name' => 'required|string|max:40|unique:products,name'
+                . ($this->request->has('product_id') ? ', ' . $this->request->has('product_id') : ''),
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'description' => 'string|nullable|max:500',
             'price' => 'required|decimal:0,2|min:0.1',
