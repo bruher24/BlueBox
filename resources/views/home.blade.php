@@ -16,10 +16,10 @@
                 <p class="lead">Простое и доступное добавление, редактирование,просмотр и удаление товаров и заказов для
                     Вас.</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="{{ route('products.list') }}">
+                    <a href="{{ route('products.index') }}">
                         <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Товары</button>
                     </a>
-                    <a href="{{ route('orders.list') }}">
+                    <a href="{{ route('orders.index') }}">
                         <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Заказы</button>
                     </a>
                 </div>

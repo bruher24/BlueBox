@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('quantity')->default(1);
             $table->string('client_name');
-            $table->enum('status', ['new', 'done'])->default('new');
+            $table->tinyInteger('status')->default(StatusEnum::New->value);
             $table->text('comment')->nullable();
             $table->timestamps();
             $table->index('product_id', 'idx_orders_product_id');

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StatusEnum;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
@@ -25,17 +27,17 @@ class OrderController extends Controller
             'product_id' => 'required|integer',
             'quantity' => 'required|integer',
             'comment' => 'string|max:500',
-            'status' => 'required|in:new,done',
+            'status' => ['required', Rule::enum(StatusEnum::class)],
         ]);
 
         Order::create($validated);
 
-        return redirect()->route('orders.list')->with('success', 'Заказ добавлен!');
+        return redirect()->route('orders.index')->with('success', 'Заказ добавлен!');
     }
 
     public function complete(int $order_id){
         $order = Order::findOrFail($order_id);
-        $order->status = 'done';
+        $order->status = StatusEnum::Done;
         $order->save();
         return redirect()->route('orders.details', $order_id)->with('success', 'Заказ отмечен выполненным!');
     }
@@ -46,18 +48,18 @@ class OrderController extends Controller
             'product_id' => 'required|integer',
             'quantity' => 'required|integer',
             'comment' => 'string|max:500',
-            'status' => 'required|in:new,done',
+            'status' => ['required', Rule::enum(StatusEnum::class)],
         ]);
 
         $order = Product::findOrFail($order_id);
         $order->update($validated);
-        return redirect()->route('orders.list')->with('success', 'Заказ обновлен!');
+        return redirect()->route('orders.index')->with('success', 'Заказ обновлен!');
 
     }
 
     public function delete(int $order_id){
         Order::destroy($order_id);
-        return redirect()->route('orders.list')->with('success', 'Заказ удален!');
+        return redirect()->route('orders.index')->with('success', 'Заказ удален!');
     }
 
     public function details(int $order_id){

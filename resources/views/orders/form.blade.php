@@ -1,3 +1,4 @@
+@php use App\Enums\StatusEnum; @endphp
 @extends('orders.layout')
 @section('orders.title')
     Заказ
@@ -41,21 +42,23 @@
             <div class="input-group">
                 <label class="form-label" for="comment">
                     Комментарий:
-                    <textarea class="form-control" id="comment" name="comment" placeholder="Введите текст..."></textarea>
+                    <textarea class="form-control" id="comment" name="comment"
+                              placeholder="Введите текст..."></textarea>
                 </label>
             </div>
             <div class="input-group">
                 <label class="form-label" for="status">
                     Статус:
                     <select class="form-select form-control" id="status" name="status">
-                        <option value="new" selected>Новый</option>
-                        <option value="done">Выполнен</option>
+                        @foreach(StatusEnum::cases() as $status)
+                            <option value="{{ $status->value }}">{{ $status->label() }}</option>
+                        @endforeach
                     </select>
                 </label>
             </div>
             <input class="btn btn-success" type="submit" value="Сохранить">
         </form>
-        <a href="{{ route('orders.list') }}">
+        <a href="{{ route('orders.index') }}">
             <button class="btn btn-dark">Назад</button>
         </a>
 

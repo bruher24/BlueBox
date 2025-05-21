@@ -48,7 +48,7 @@
             </div>
             <input class="btn btn-success" type="submit" value="Сохранить">
         </form>
-        <a href="{{ route('products.list') }}">
+        <a href="{{ route('products.index') }}">
             <button class="btn btn-dark">Назад</button>
         </a>
 

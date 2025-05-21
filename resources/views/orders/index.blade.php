@@ -25,13 +25,7 @@
                     <td>{{ $order->order_id }}</td>
                     <td>{{ $order->created_at->timezone('Europe/Samara')->format('H:i d.m.Y') }}</td>
                     <td>{{ $order->client_name }}</td>
-                    <td>
-                        @if($order->status === "new")
-                            Новый
-                        @else
-                            Выполнен
-                        @endif
-                    </td>
+                    <td>{{ $order->status->label() }}</td>
                     <td>{{ $order->product->price * $order->quantity }}</td>
                     <td>
                         <a href="{{ route('orders.details', $order->id) }}" class="btn btn-sm btn-secondary">Подробнее</a>

@@ -33,7 +33,7 @@ class ProductController extends Controller
             'price' => 'required|integer',
         ]);
         Product::create($validated);
-        return redirect()->route('products.list')->with('success', 'Товар добавлен!');
+        return redirect()->route('products.index')->with('success', 'Товар добавлен!');
     }
 
     public function update(Request $request, int $productId){
@@ -46,13 +46,13 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($productId);
         $product->update($validated);
-        return redirect()->route('products.list')->with('success', 'Товар успешно обновлен!');
+        return redirect()->route('products.index')->with('success', 'Товар успешно обновлен!');
 
     }
 
     public function delete(int $productId){
         Product::destroy($productId);
-        return redirect()->route('products.list')->with('success', 'Товар успешно удален!');
+        return redirect()->route('products.index')->with('success', 'Товар успешно удален!');
     }
 
     public function details(int $productId){

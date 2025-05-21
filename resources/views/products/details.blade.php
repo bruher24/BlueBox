@@ -48,7 +48,7 @@
             </tbody>
         </table>
 
-        <a href="{{ route('products.list') }}">
+        <a href="{{ route('products.index') }}">
             <button class="btn btn-dark">Назад</button>
         </a>
         <a href="{{ route('products.form', $product->id) }}">

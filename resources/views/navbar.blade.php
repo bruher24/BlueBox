@@ -5,13 +5,13 @@
         @else
         @endif
         ">Главная</a></li>
-    <li class="nav-item"><a href="{{ route('products.list') }}" class="nav-link
+    <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link
         @if( request()->routeIs('products.*') )
             active" aria-current="page"
         @else
         @endif
         ">Товары</a></li>
-    <li class="nav-item"><a href="{{ route('orders.list') }}" class="nav-link
+    <li class="nav-item"><a href="{{ route('orders.index') }}" class="nav-link
         @if( request()->routeIs('orders.*') )
             active" aria-current="page"
         @else

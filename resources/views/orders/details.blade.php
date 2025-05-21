@@ -1,3 +1,4 @@
+@php use App\Enums\StatusEnum; @endphp
 @extends('orders.layout')
 @section('orders.title')
     Детали заказа
@@ -39,13 +40,7 @@
             </tr>
             <tr>
                 <td>Статус</td>
-                <td>
-                    @if($order->status === "new")
-                        Новый
-                    @else
-                        Выполнен
-                    @endif
-                </td>
+                <td>{{ $order->status->label() }}</td>
             </tr>
             <tr>
                 <td>Комментарий</td>
@@ -54,18 +49,23 @@
             </tbody>
         </table>
 
-        <a href="{{ route('orders.list') }}">
+        <a href="{{ route('orders.index') }}">
             <button class="btn btn-dark">Назад</button>
         </a>
-        <form action="{{ route('orders.complete', $order->id) }}" method="POST" style="@if($order->status === "done") display:none; @else display:inline; @endif">
-            @csrf
-            @method('PUT')
-            <button type="submit" class="btn btn-success">Выполнить</button>
-        </form>
+        @if($order->status != StatusEnum::Done)
+            <form action="{{ route('orders.complete', $order->id) }}" method="POST"
+                  style="display:inline;">
+                @csrf
+                @method('PUT')
+                <button type="submit" class="btn btn-success">Выполнить</button>
+            </form>
+        @endif
         <form action="{{ route('orders.delete', $order->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот заказ?')">Удалить</button>
+            <button type="submit" class="btn btn-danger"
+                    onclick="return confirm('Вы уверены, что хотите удалить этот заказ?')">Удалить
+            </button>
         </form>
 
     </div>

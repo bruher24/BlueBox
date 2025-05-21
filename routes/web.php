@@ -20,7 +20,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::controller(ProductController::class)->prefix('products')->name('products.')->group(function () {
-    Route::get('list', 'index')->name('list');
+    Route::get('/', 'index')->name('index');
     Route::get('form/{product_id?}', 'form')->name('form');
     Route::post('create', 'create')->name('create');
     Route::put('{product_id}/update', 'update')->name('update');
@@ -29,7 +29,7 @@ Route::controller(ProductController::class)->prefix('products')->name('products.
 });
 
 Route::controller(OrderController::class)->prefix('orders')->name('orders.')->group(function () {
-    Route::get('list', 'index')->name('list');
+    Route::get('/', 'index')->name('index');
     Route::get('form}', 'form')->name('form');
     Route::post('create', 'create')->name('create');
     Route::put('{order_id}/complete', 'complete')->name('complete');
