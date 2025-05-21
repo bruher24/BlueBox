@@ -52,7 +52,7 @@ class OrderController extends Controller
         return redirect()->route('orders.index')->with('success', 'Заказ обновлен!');
     }
 
-    public function delete(int $order_id): RedirectResponse
+    public function destroy(int $order_id): RedirectResponse
     {
         Order::destroy($order_id);
         return redirect()->route('orders.index')->with('success', 'Заказ удален!');

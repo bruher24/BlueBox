@@ -40,7 +40,7 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Товар успешно обновлен!');
     }
 
-    public function delete(int $productId): RedirectResponse
+    public function destroy(int $productId): RedirectResponse
     {
         Product::destroy($productId);
         return redirect()->route('products.index')->with('success', 'Товар успешно удален!');

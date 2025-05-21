@@ -28,7 +28,7 @@ class StoreProductRequest extends FormRequest
             'name' => 'required|string|max:40|unique:products,name'
                 . ($this->request->has('product_id') ? ', ' . $this->request->has('product_id') : ''),
             'category_id' => ['required', Rule::exists('categories', 'id')],
-            'description' => 'string|nullable|max:500',
+            'description' => 'string|nullable|max:100',
             'price' => 'required|decimal:0,2|min:0.1',
         ];
     }

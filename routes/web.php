@@ -24,7 +24,7 @@ Route::controller(ProductController::class)->prefix('products')->name('products.
     Route::get('form/{product_id?}', 'form')->name('form');
     Route::post('create', 'create')->name('create');
     Route::put('{product_id}/update', 'update')->name('update');
-    Route::delete('{product_id}/delete', 'delete')->name('delete');
+    Route::delete('{product_id}/delete', 'destroy')->name('destroy');
     Route::get('{product_id}/details', 'details')->name('details');
 });
 
@@ -33,7 +33,7 @@ Route::controller(OrderController::class)->prefix('orders')->name('orders.')->gr
     Route::get('form}', 'form')->name('form');
     Route::post('create', 'create')->name('create');
     Route::put('{order_id}/complete', 'complete')->name('complete');
-    Route::get('{order_id}/delete', 'delete')->name('delete');
+    Route::get('{order_id}/delete', 'destroy')->name('destroy');
     Route::get('{order_id}/details', 'details')->name('details');
 });
 
