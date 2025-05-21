@@ -1,6 +1,5 @@
 # BlueBox
 ## Описание
-# php artisan key:generate
 Веб-приложение с использованием фреймворка Laravel (https://laravel.com/docs/9.x), которое позволяет управлять товарами и заказами.
 
 ## Установка
@@ -61,11 +60,15 @@ docker compose exec -it app bash
 ```shell
 composer update
 ```
-8. Выполнить миграции
+8. Создать ключ приложения
+```shell
+php artisan key:generate
+```
+9. Выполнить миграции
 ```shell
 php artisan migrate
 ```
-9. Заполнить таблицы начальными данными
+10. Заполнить таблицы начальными данными
 ```shell
 php artisan db:seed
 ```
