@@ -2,14 +2,12 @@ build:
 	docker compose build
 	docker compose up -d app
 	docker compose exec app composer update
+	docker compose exec app php artisan key:generate
 	docker compose down
 
 run:
 	docker compose up -d
 
-key:
-	docker compose exec app php artisan key:generate
-# TODO: добавить в инструкцию
 fill:
 	docker compose exec app php artisan migrate
 	docker compose exec app php artisan db:seed
