@@ -34,7 +34,7 @@ make build
 ```shell
 make run
 ```
-7. Заполнить таблицы
+7. Выполнить миграции и заполнить таблицы начальными данными
 ```shell
 make fill
 ```
@@ -52,7 +52,7 @@ make fill
 ```shell
 docker compose up --build -d
 ```
-6. Открыть терминал контейнера
+6. Открыть терминал контейнера с Laravel
 ```shell
 docker compose exec -it app bash
 ```
@@ -77,13 +77,29 @@ php artisan db:seed
 После этого можно заходить на http://localhost:3000, проект готов к использованию. \
 Adminer для управления и просмотра базы данных доступен по адресу http://localhost:8080.
 
-## Переменные по умолчанию
+## Переменные конфигурации docker-compose.yml по умолчанию
+> [!NOTE]
+> Для nginx и postgres используются нестандартные порты для хоста, чтобы уменьшить вероятность конфликта. \
+> Например, если на хост-машине на порте 80 уже работает другой веб-сервер или на порте 5432 запущен postgres.
 ### nginx
-- **ports**: "3000:80"
+| Название | Значение |
+|---|---|
+| ports | "3000:80" |
+
 ### postgres
-- **ports**: "5433:5432"
-- **DB**: mydatabase
-- **USER**: laravel
-- **PWD**: secret
+| Название | Значение |
+|---|---|
+| ports | "5433:5432" |
+| POSTGRES_DB | mydatabase |
+| POSTGRES_USER | laravel |
+| POSTGRES_PASSWORD | secret |
+| PGDATA | /var/lib/postgresql/data/pgdata |
+
 ### adminer
-- **ports**: "8080:8080"
+| Название | Значение |
+|---|---|
+| ports | "8080:8080" |
+| ADMINER_DEFAULT_DB_DRIVER | pgsql |
+| ADMINER_DEFAULT_DB_HOST | postgres:5432 |
+| ADMINER_DEFAULT_DB_NAME | mydatabase |
+| ADMINER_DEFAULT_SERVER | postgres:5432 |
