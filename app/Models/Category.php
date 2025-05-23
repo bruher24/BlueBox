@@ -9,6 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+    ];
     public $timestamps = false;
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
