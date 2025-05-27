@@ -35,32 +35,32 @@ class OrderController extends Controller
         return redirect()->route('orders.index')->with('success', 'Заказ добавлен!');
     }
 
-    public function complete(int $order_id): RedirectResponse
+    public function complete(int $orderId): RedirectResponse
     {
-        $order = Order::findOrFail($order_id);
+        $order = Order::findOrFail($orderId);
         $order->status = StatusEnum::Done;
         $order->save();
-        return redirect()->route('orders.details', $order_id)->with('success', 'Заказ отмечен выполненным!');
+        return redirect()->route('orders.details', $orderId)->with('success', 'Заказ отмечен выполненным!');
     }
 
-    public function update(StoreOrderRequest $request, int $order_id): RedirectResponse
+    public function update(StoreOrderRequest $request, int $orderId): RedirectResponse
     {
         $validated = $request->validated();
 
-        $order = Product::findOrFail($order_id);
+        $order = Product::findOrFail($orderId);
         $order->update($validated);
         return redirect()->route('orders.index')->with('success', 'Заказ обновлен!');
     }
 
-    public function destroy(int $order_id): RedirectResponse
+    public function destroy(int $orderId): RedirectResponse
     {
-        Order::destroy($order_id);
+        Order::destroy($orderId);
         return redirect()->route('orders.index')->with('success', 'Заказ удален!');
     }
 
-    public function details(int $order_id): Factory|View|Application
+    public function details(int $orderId): Factory|View|Application
     {
-        $order = Order::findOrFail($order_id);
+        $order = Order::findOrFail($orderId);
         return view('orders.details', compact('order'));
     }
 }
