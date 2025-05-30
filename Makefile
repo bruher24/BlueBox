@@ -3,6 +3,8 @@ build:
 	docker compose up -d app
 	docker compose exec app composer update
 	docker compose exec app php artisan key:generate
+	docker compose exec app chown -R www-data:www-data storage/
+	docker compose exec app chmod -R 775 storage/
 	docker compose down
 
 run:
