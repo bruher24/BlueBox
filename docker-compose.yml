@@ -30,9 +30,9 @@ services:
         container_name: app_postgres
         restart: unless-stopped
         environment:
-            POSTGRES_DB: mydatabase
-            POSTGRES_USER: laravel
-            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
             PGDATA: /var/lib/postgresql/data/pgdata
         ports:
             - "5433:5432"
@@ -48,11 +48,11 @@ services:
         ports:
             - "8080:8080"
         environment:
-            ADMINER_DEFAULT_DB_DRIVER: pgsql
-            ADMINER_DEFAULT_DB_HOST: postgres:5432
-            ADMINER_DEFAULT_DB_NAME: mydatabase
+            ADMINER_DEFAULT_DB_DRIVER: ${DB_CONNECTION}
+            ADMINER_DEFAULT_DB_HOST: ${DB_HOST}:${DB_PORT}
+            ADMINER_DEFAULT_DB_NAME: ${DB_DATABASE}
             ADMINER_DESIGN: nette
-            ADMINER_DEFAULT_SERVER: postgres:5432
+            ADMINER_DEFAULT_SERVER: ${DB_HOST}:${DB_PORT}
         depends_on:
             -   postgres
         networks:
