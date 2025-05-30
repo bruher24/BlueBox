@@ -63,6 +63,11 @@ composer update
 ```shell
 php artisan key:generate
 ```
+9. Дать пользователю веб-сервера (www-data) необходимые права
+```shell
+docker compose exec app chown -R www-data:www-data storage/
+docker compose exec app chmod -R 775 storage/
+```
 9. Выполнить миграции
 ```shell
 php artisan migrate
