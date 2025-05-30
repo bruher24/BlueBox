@@ -14,7 +14,7 @@ class OrderTest extends TestCase
     {
         $data = [
             'client_name' => Factory::create()->name(),
-            'product_id' => Product::all()->last()->id,
+            'product_id' => Product::all()->last()->id ?? 1,
             'quantity' => Factory::create()->numberBetween(1, 100),
             'comment' => Factory::create()->text(500),
             'status' => StatusEnum::New->value,
