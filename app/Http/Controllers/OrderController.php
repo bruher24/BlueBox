@@ -29,9 +29,7 @@ class OrderController extends Controller
     public function create(StoreOrderRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-
         Order::create($validated);
-
         return redirect()->route('orders.index')->with('success', 'Заказ добавлен!');
     }
 
@@ -46,7 +44,6 @@ class OrderController extends Controller
     public function update(StoreOrderRequest $request, int $orderId): RedirectResponse
     {
         $validated = $request->validated();
-
         $order = Product::findOrFail($orderId);
         $order->update($validated);
         return redirect()->route('orders.index')->with('success', 'Заказ обновлен!');

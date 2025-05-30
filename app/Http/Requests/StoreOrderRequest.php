@@ -36,7 +36,8 @@ class StoreOrderRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $this->request->set('client_name', preg_replace('/\s+/', ' ', $this->request->get('client_name')));
+        $this->request->set('client_name', preg_replace('/\s+/', ' ',
+            $this->request->get('client_name')));
     }
 
     public function messages()
@@ -45,7 +46,7 @@ class StoreOrderRequest extends FormRequest
             'client_name.required' => 'Поле "ФИО" обязательно для ввода!',
             'client_name.max' => '"ФИО" не должно превышать :max символов!',
             'product_id.required' => 'Поле "Товар" обязательно для ввода!',
-            'comment.max' => '"Комментарий" не должен превышать :max сиволов!',
+            'comment.max' => '"Комментарий" не должен превышать :max символов!',
         ];
     }
 }
